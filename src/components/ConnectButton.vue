@@ -20,7 +20,7 @@ const provider = ref<IProvider | null | undefined>()
 const showModal = ref(false)
 const userInfo = ref<Partial<UserInfo>>()
 let web3auth: UndefinedOr<IWeb3Auth>
-let connection: UndefinedOr<typeof Connection>
+let connectionPool: UndefinedOr<typeof Connection>
 
 const truncatedAddress = computed(() => {
 	const match = account.value?.match(
@@ -81,11 +81,9 @@ onMounted(async () => {
 	await web3auth.initModal()
 	loaded.value = true
 
-	const { connection: conn } = await import(
-		'@devprotocol/clubs-core/connection'
-	)
-	connection = conn
+	const { connection } = await import('@devprotocol/clubs-core/connection')
 
+	// @ts-ignore
 	connection().account.subscribe((_account) => {
 		account.value = _account
 		if (_account && props.redirectOnSignin) {
@@ -95,6 +93,7 @@ onMounted(async () => {
 			).toString()
 		}
 	})
+	// @ts-ignore
 	connection().chain.subscribe((chain) => {
 		error.value = whenDefined(chain, (chainId) =>
 			props.chainId && chainId !== props.chainId // There might be a case where we don't have chainId in props (eg. signin, publish flow, etc)
@@ -102,16 +101,17 @@ onMounted(async () => {
 				: undefined,
 		)
 	})
+	connectionPool = connection
 })
 
 watch(provider, async (prov) => {
-	const res = !connection
+	const res = !connectionPool
 		? new Error('clubs-core/connection not initialized yet')
 		: prov
-		  ? await connection()
+		  ? await connectionPool()
 					.setEip1193Provider(prov, BrowserProvider)
 					.then(() => true)
-		  : connection().signer.next(undefined)
+		  : connectionPool().signer.next(undefined)
 	error.value = isNotError(res) ? undefined : res
 })
 </script>

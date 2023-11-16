@@ -12,7 +12,7 @@
 	},
 	"include": [
 		"src",
-		"preview",
+		".preview",
 		"config.js",
 		"rollup.config.js",
 		"rollup.config.ui.js",
