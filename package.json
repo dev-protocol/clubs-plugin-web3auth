@@ -1,6 +1,6 @@
 {
 	"name": "@devprotocol/clubs-plugin-web3auth",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"type": "module",
 	"description": "Clubs plugin for integrating web3auth as a wallet provider.",
 	"main": "dist/index.js",
