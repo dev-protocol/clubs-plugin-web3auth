@@ -1,5 +1,7 @@
 import { dirname, relative, resolve } from 'path'
+import { dts } from 'rollup-plugin-dts'
 import typescript from '@rollup/plugin-typescript'
+import packageJson from './package.json' assert { type: 'json' }
 
 const dir = 'dist'
 
@@ -19,9 +21,15 @@ const useSrc = ({ dir: _dir, ext } = {}) => ({
 	},
 })
 
+const external = [
+	...Object.keys(packageJson.dependencies),
+	...Object.keys(packageJson.peerDependencies),
+]
+
 export default [
 	{
 		input: 'src/index.ts',
+		external,
 		output: [
 			{
 				dir,
@@ -30,7 +38,44 @@ export default [
 		],
 		plugins: [
 			typescript(),
-			useSrc({ ext: ['.astro', '.svelte', '.vue', '.scss', '.css'], dir }),
+			useSrc({
+				ext: [
+					'.astro',
+					'.svelte',
+					'.vue',
+					'.scss',
+					'.css',
+					'.jpg',
+					'.png',
+					'.svg',
+				],
+				dir,
+			}),
+		],
+	},
+	{
+		input: 'src/index.ts',
+		output: [
+			{
+				file: 'dist/index.d.ts',
+				format: 'es',
+			},
+		],
+		plugins: [
+			dts(),
+			useSrc({
+				ext: [
+					'.astro',
+					'.svelte',
+					'.vue',
+					'.scss',
+					'.css',
+					'.jpg',
+					'.png',
+					'.svg',
+				],
+				dir,
+			}),
 		],
 	},
 ]

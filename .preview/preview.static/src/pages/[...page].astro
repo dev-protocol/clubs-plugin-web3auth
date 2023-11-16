@@ -3,6 +3,7 @@ import type { InferGetStaticPropsType } from 'astro'
 import {
 	type ClubsFunctionPageFactoryResult,
 	pageFactory,
+	ClubsSlotName,
 } from '@devprotocol/clubs-core'
 import config from '../../../config'
 import plugins from '../../../plugins'
@@ -21,8 +22,19 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const Content = Astro.props.component
 const Layout = Astro.props.layout
+
+const SlotsClubsConnectButton =
+	Astro.props.clubs.slots.filter(
+		(slot) => slot.slot === ClubsSlotName.ConnectButton,
+	) ?? []
 ---
 
 <Layout {...Astro.props}>
+	{
+		SlotsClubsConnectButton.map((Slot) => (
+			<Slot.component {...Slot.props} slot="clubs:connect-button" />
+		))
+	}
+
 	<Content {...Astro.props} />
 </Layout>

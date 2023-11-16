@@ -16,12 +16,8 @@ export default () =>
 				options: [],
 			},
 			{
-				id: 'unique-and-descriptive-name-here',
-				options: [
-					{ key: 'slug', value: 'stokens' },
-					{ key: 'rpc', value: 'https://polygon-rpc.com/' },
-					{ key: 'maxpage', value: 30 },
-				],
+				id: 'devprotocol:clubs:plugin:web3auth',
+				options: [],
 			},
 		],
 	})

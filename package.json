@@ -1,18 +1,18 @@
 {
-	"name": "@devprotocol/clubs-plugin-starter-kit",
+	"name": "@devprotocol/clubs-plugin-web3auth",
 	"version": "0.1.0",
 	"type": "module",
-	"description": "Template repository for using TypeScript",
+	"description": "Clubs plugin for integrating web3auth as a wallet provider.",
 	"main": "dist/index.js",
 	"exports": {
 		".": {
 			"default": "./dist/index.js"
 		}
 	},
-	"types": "./dist/src/index.d.ts",
+	"types": "./dist/index.d.ts",
 	"files": [
-		"dist/**/*.d.ts",
-		"dist/**/*.js",
+		"dist/*.d.ts",
+		"dist/*.js",
 		"!**/*.test.*",
 		"src"
 	],
@@ -21,8 +21,7 @@
 	],
 	"scripts": {
 		"test": "ava || echo 'skip'",
-		"preview": "astro --root .preview/preview.ssr dev",
-		"preview:static": "astro --root .preview/preview.static dev",
+		"preview": "astro --root .preview/preview.static dev",
 		"build": "rollup -c",
 		"pretest": "yarn build",
 		"prebuild": "rimraf dist",
@@ -37,13 +36,14 @@
 	"dependencies": {
 		"@devprotocol/dev-kit": "8.6.0",
 		"@devprotocol/util-ts": "4.0.0",
+		"@wagmi/core": "^1.4.7",
+		"@web3auth/modal": "^7.1.1",
 		"bignumber.js": "9.1.2",
-		"ethers": "6.8.1",
-		"ramda": "0.29.1",
-		"sass": "1.69.5"
+		"ramda": "0.29.1"
 	},
 	"peerDependencies": {
-		"@devprotocol/clubs-core": "^2.1.1"
+		"@devprotocol/clubs-core": "^2.1.1",
+		"ethers": "^6.0.0"
 	},
 	"devDependencies": {
 		"@astrojs/svelte": "^4.0.3",
@@ -51,6 +51,7 @@
 		"@astrojs/vue": "^3.0.0",
 		"@ava/typescript": "4.1.0",
 		"@devprotocol/clubs-core": "2.3.3",
+		"@devprotocol/elements": "^1.1.0",
 		"@rollup/plugin-typescript": "11.1.5",
 		"@tailwindcss/typography": "^0.5.10",
 		"@types/dotenv": "8.2.0",
@@ -64,15 +65,23 @@
 		"eslint": "8.53.0",
 		"eslint-config-prettier": "9.0.0",
 		"eslint-plugin-functional": "6.0.0",
+		"ethers": "6.8.1",
 		"husky": "8.0.3",
 		"prettier": "3.1.0",
 		"prettier-plugin-astro": "^0.12.0",
 		"prettier-plugin-svelte": "^3.0.0",
+		"prettier-plugin-tailwindcss": "^0.5.7",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
 		"rimraf": "5.0.5",
 		"rollup": "4.4.1",
-		"svelte": "^4.2.2",
+		"rollup-plugin-dts": "^6.1.0",
+		"rxjs": "^7.8.1",
+		"sass": "1.69.5",
+		"svelte": "^4.2.3",
 		"tailwindcss": "3.3.5",
 		"typescript": "5.2.2",
+		"vite-plugin-node-polyfills": "^0.16.0",
 		"vue": "3.3.8"
 	},
 	"ava": {

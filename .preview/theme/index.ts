@@ -7,11 +7,15 @@ import {
 	ClubsThemePluginMeta,
 } from '@devprotocol/clubs-core'
 import { default as Default } from './Default.astro'
+import Debug from './debug.astro'
 
-export const getPagePaths = (async () => []) satisfies ClubsFunctionGetPagePaths
+export const getPagePaths = (async () => [
+	{ paths: [], component: Debug },
+]) satisfies ClubsFunctionGetPagePaths
 
-export const getAdminPaths =
-	(async () => []) satisfies ClubsFunctionGetAdminPaths
+export const getAdminPaths = (async () => [
+	{ paths: [], component: Debug },
+]) satisfies ClubsFunctionGetAdminPaths
 
 export const getLayout = (async () => ({
 	layout: Default,
