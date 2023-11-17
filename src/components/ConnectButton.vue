@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { whenDefined, type UndefinedOr, isNotError } from '@devprotocol/util-ts'
-import type { Web3Auth as IWeb3Auth, Web3AuthOptions } from '@web3auth/modal'
-import { Web3Auth } from '@web3auth/modal'
+import type { Web3Auth, Web3AuthOptions } from '@web3auth/modal'
 import type { IProvider, UserInfo } from '@web3auth/base'
 import { mainnet, polygon, polygonMumbai } from '@wagmi/core/chains'
 import { computed, onMounted, ref, watch } from 'vue'
@@ -10,6 +9,7 @@ import { BrowserProvider } from 'ethers'
 import Modal from './Modal.vue'
 import type { Web3AuthButtonOptions, Web3AuthButtonEnvs } from '../types'
 import ClubsLogo from '../assets/clubs--color.svg'
+import { load } from '../utils/load'
 
 const props = defineProps<Web3AuthButtonOptions & Web3AuthButtonEnvs>()
 
@@ -19,7 +19,7 @@ const loaded = ref<boolean>()
 const provider = ref<IProvider | null | undefined>()
 const showModal = ref(false)
 const userInfo = ref<Partial<UserInfo>>()
-let web3auth: UndefinedOr<IWeb3Auth>
+let web3auth: UndefinedOr<Web3Auth>
 let connectionPool: UndefinedOr<typeof Connection>
 
 const truncatedAddress = computed(() => {
@@ -68,7 +68,13 @@ const logout = async () => {
 
 onMounted(async () => {
 	console.log({ chainConfig })
-	web3auth = new Web3Auth({
+
+	const [{ connection }] = await Promise.all([
+		import('@devprotocol/clubs-core/connection'),
+		load('//cdn.jsdelivr.net/npm/buffer@6'),
+		load('//cdn.jsdelivr.net/npm/@web3auth/modal'),
+	])
+	web3auth = new window.Modal.Web3Auth({
 		clientId: props.web3authClientId,
 		web3AuthNetwork: props.web3authNetwork,
 		chainConfig,
@@ -80,8 +86,6 @@ onMounted(async () => {
 	})
 	await web3auth.initModal()
 	loaded.value = true
-
-	const { connection } = await import('@devprotocol/clubs-core/connection')
 
 	// @ts-ignore
 	connection().account.subscribe((_account) => {

@@ -38,9 +38,11 @@
 		"@devprotocol/dev-kit": "8.6.0",
 		"@devprotocol/util-ts": "4.0.0",
 		"@wagmi/core": "^1.4.7",
+		"@web3auth/base": "^7.1.0",
 		"@web3auth/modal": "^7.1.1",
 		"bignumber.js": "9.1.2",
-		"ramda": "0.29.1"
+		"ramda": "0.29.1",
+		"type-fest": "^4.7.1"
 	},
 	"peerDependencies": {
 		"@devprotocol/clubs-core": "^2.1.1",
