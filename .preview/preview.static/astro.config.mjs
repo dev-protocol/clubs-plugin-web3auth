@@ -4,13 +4,9 @@ import vue from '@astrojs/vue'
 import svelte from '@astrojs/svelte'
 import tailwind from '@astrojs/tailwind'
 import { config } from 'dotenv'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 config({ path: './.env' })
 
 export default defineConfig({
 	integrations: [clubs(), vue(), svelte(), tailwind()],
-	vite: {
-		plugins: [nodePolyfills()],
-	},
 })
