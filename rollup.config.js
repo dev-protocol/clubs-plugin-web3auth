@@ -37,7 +37,6 @@ export default [
 			},
 		],
 		plugins: [
-			typescript(),
 			useSrc({
 				ext: [
 					'.astro',
@@ -51,10 +50,11 @@ export default [
 				],
 				dir,
 			}),
+			typescript(),
 		],
 	},
 	{
-		input: 'src/index.ts',
+		input: 'dist/src/index.d.ts',
 		output: [
 			{
 				file: 'dist/index.d.ts',
@@ -62,7 +62,6 @@ export default [
 			},
 		],
 		plugins: [
-			dts(),
 			useSrc({
 				ext: [
 					'.astro',
@@ -76,6 +75,7 @@ export default [
 				],
 				dir,
 			}),
+			dts(),
 		],
 	},
 ]
