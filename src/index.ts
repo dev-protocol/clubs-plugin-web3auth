@@ -1,5 +1,4 @@
 import type {
-	ClubsFunctionGetPagePaths,
 	ClubsFunctionGetSlots,
 	ClubsFunctionPlugin,
 	ClubsPluginMeta,
@@ -7,12 +6,6 @@ import type {
 import { ClubsPluginCategory } from '@devprotocol/clubs-core'
 import { ConnectButton } from './components'
 import Readme from './readme.astro'
-import Iframe from './pages/iframe.astro'
-import Layout from './layouts/Default.astro'
-
-export const getPagePaths = (async () => [
-	{ paths: [meta.id, 'iframe'], component: Iframe, layout: Layout },
-]) satisfies ClubsFunctionGetPagePaths
 
 const getSlots = (async (_, { chainId, rpcUrl }) => {
 	return [
@@ -35,7 +28,6 @@ const meta = {
 } satisfies ClubsPluginMeta
 
 export default {
-	getPagePaths,
 	getSlots,
 	meta,
 } satisfies ClubsFunctionPlugin
