@@ -17,6 +17,7 @@
 		"config.js",
 		"rollup.config.js",
 		"rollup.config.ui.js",
-		"tailwind.config.js"
+		"tailwind.config.js",
+		"iframe"
 	]
 }
