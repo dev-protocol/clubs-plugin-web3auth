@@ -72,7 +72,9 @@ onMounted(async () => {
 	const [{ connection }] = await Promise.all([
 		import('@devprotocol/clubs-core/connection'),
 		load('//cdn.jsdelivr.net/npm/buffer@6'),
-		load('//cdn.jsdelivr.net/npm/@web3auth/modal'),
+		load('//cdn.jsdelivr.net/npm/@web3auth/modal', () =>
+			Boolean(window.Modal?.Web3Auth),
+		),
 	])
 	web3auth = new window.Modal.Web3Auth({
 		clientId: props.web3authClientId,
